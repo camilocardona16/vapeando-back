@@ -1,9 +1,11 @@
 import {RequestHandler, response} from 'express';
 import Producto from './producto'
+// const socket = require('./websocket');
 
 export const obtenerProductos:RequestHandler = async (req,res) => {
     try {
         const productos = await Producto.find()
+        // socket.emmit('actualizar',productos);
         return res.json(productos);
     } catch (error) {
         res.json(error)
@@ -22,7 +24,7 @@ export const crearProducto:RequestHandler = async (req,res) => {
 
 export const obtenerProducto:RequestHandler = async (req,res) => {
     try {
-        const producto =await  Producto.findOne({id:req.params.id});
+        const producto =await  Producto.findById(req.params.id);
         if(producto){
             return res.json(producto);
         }else{
@@ -36,7 +38,7 @@ export const obtenerProducto:RequestHandler = async (req,res) => {
 
 export const actualizarProducto:RequestHandler =async (req,res) => {
     try {
-        const producto =await  Producto.findOneAndUpdate({id:req.params.id},req.body,{new:true});
+        const producto =await  Producto.findByIdAndUpdate(req.params.id,req.body,{new:true});
         if(producto){
             return res.json(producto);
         }else{
@@ -49,7 +51,7 @@ export const actualizarProducto:RequestHandler =async (req,res) => {
 
 export const borrarProducto:RequestHandler = async (req,res) => {
     try {
-        const producto =await  Producto.findOneAndDelete({id:req.params.id});
+        const producto =await  Producto.findByIdAndDelete(req.params.id);
         if(producto){
             return res.json({mensaje:'producto eliminado'});
         }else{

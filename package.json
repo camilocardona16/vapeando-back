@@ -16,6 +16,7 @@
   "license": "ISC",
   "homepage": "https://github.com/camilocardona16/vapeando-node#readme",
   "dependencies": {
+    "@types/socket.io": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
